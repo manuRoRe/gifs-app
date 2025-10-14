@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface SearchBarProps {
   placeHolder?: string;
@@ -10,9 +10,19 @@ export const SearchBar = ({
 }: SearchBarProps) => {
   const [query, setQuery] = useState("");
 
+  useEffect(() => {
+    const timeoutID = setTimeout(() => {
+      onQuery(query);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutID);
+    };
+  }, [query, onQuery]);
+
   const handleSearch = () => {
     onQuery(query);
-    setQuery("");
+    /*  setQuery(""); */
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
