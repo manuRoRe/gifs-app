@@ -7,13 +7,15 @@ import { GifList } from "./gifs/components/GifList";
 
 export const GifsApp = () => {
   const [previousTerms, setPreviousTerms] = useState(["dragon ball"]);
-  /**
-   * Logs the term to the console when a term is clicked
-   * @param {string} term - The term that was clicked
-   */
+
   const handleTermClick = (search: string) => {
     console.log(search);
   };
+
+  const handleSearch = (query: string) => {
+    console.log(query);
+  };
+
   return (
     <>
       {/* Header */}
@@ -23,7 +25,7 @@ export const GifsApp = () => {
       ></CustomHeader>
 
       {/* Buscador */}
-      <SearchBar placeHolder="Buscar Gifs"></SearchBar>
+      <SearchBar placeHolder="Buscar Gifs" onQuery={handleSearch}></SearchBar>
 
       {/* Busquedas previas */}
       <PreviousSearches
