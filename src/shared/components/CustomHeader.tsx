@@ -1,5 +1,3 @@
-import React from "react";
-
 interface CustomHeaderProps {
   title: string;
   subtitle?: string;
