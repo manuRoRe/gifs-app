@@ -13,7 +13,7 @@ export const SearchBar = ({
   useEffect(() => {
     const timeoutID = setTimeout(() => {
       onQuery(query);
-    }, 1000);
+    }, 700);
 
     return () => {
       clearTimeout(timeoutID);
