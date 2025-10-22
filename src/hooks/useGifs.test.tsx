@@ -1,4 +1,4 @@
-import { act, fireEvent, renderHook } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
 import { useGifs } from "./useGifs";
 import * as actions from "../gifs/actions/get-gifs-by-query.action";
