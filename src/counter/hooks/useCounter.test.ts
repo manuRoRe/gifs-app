@@ -1,7 +1,6 @@
 import { act, renderHook } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import { useCounter } from "./useCounter";
-import { beforeEach } from "node:test";
 
 describe("useCounter", () => {
   test("Should initializa with default values", () => {
