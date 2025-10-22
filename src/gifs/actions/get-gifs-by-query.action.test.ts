@@ -1,12 +1,16 @@
-import { describe, expect, test } from "vitest";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import { getGifsByQuery } from "./get-gifs-by-query.action";
 import AxiosMockAdapter from "axios-mock-adapter";
 import { giphyApi } from "../api/giphy.api";
 
-import { giphySearchResponse } from "./../../../test/mock/giphy.response.data";
+import { giphySearchResponse } from "../../../test/mock/giphy.response.data";
 
 describe("getGifsByQuery", () => {
-  const mock = new AxiosMockAdapter(giphyApi);
+  let mock = new AxiosMockAdapter(giphyApi);
+
+  beforeEach(() => {
+    mock = new AxiosMockAdapter(giphyApi);
+  });
 
   /* test("Should return a list of gifs", async () => {
     const gifs = await getGifsByQuery("goku");
@@ -38,5 +42,27 @@ describe("getGifsByQuery", () => {
       expect(typeof gif.width).toBe("number");
       expect(typeof gif.height).toBe("number");
     });
+  });
+
+  test("Should return an empty list if query is empty", async () => {
+    mock.restore();
+    const gifs = await getGifsByQuery("");
+
+    expect(gifs.length).toBe(0);
+  });
+
+  test("should handle an error response", async () => {
+    const consoleErrorSpy = vi
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+
+    mock.onGet("/search").reply(400, { error: "Error interno del servidor" });
+
+    const gifs = await getGifsByQuery("spiderman");
+
+    expect(gifs.length).toBe(0);
+
+    expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
+    expect(consoleErrorSpy).toHaveBeenCalledWith(expect.anything());
   });
 });
